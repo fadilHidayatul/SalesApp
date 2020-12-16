@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".LoginActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:gravity="center|bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/signika"
+                android:textAlignment="center"
+                android:text="Test Application"
+                android:textColor="@color/black"
+                android:textSize="40sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:elevation="2dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_12sdp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_marginVertical="@dimen/_36sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/li1"
+                        android:orientation="vertical"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/pt_sans"
+                            android:text="Username"
+                            android:textColor="@color/blur"
+                            android:textSize="16sp" />
+                        <EditText
+                            android:id="@+id/inputUsername"
+                            android:fontFamily="@font/pt_sans"
+                            android:paddingStart="@dimen/_12sdp"
+                            android:hint="input username"
+                            android:textColorHint="@color/blur"
+                            android:singleLine="true"
+                            android:textSize="22sp"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/li2"
+                        android:orientation="vertical"
+                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginVertical="@dimen/_20sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/pt_sans"
+                            android:text="Password"
+                            android:textColor="@color/blur"
+                            android:textSize="16sp" />
+                        <EditText
+                            android:id="@+id/inputPassword"
+                            android:fontFamily="@font/pt_sans"
+                            android:hint="input password"
+                            android:textColorHint="@color/blur"
+                            android:singleLine="true"
+                            android:inputType="textPassword"
+                            android:paddingStart="@dimen/_12sdp"
+                            android:textSize="22sp"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <Button
+                        android:id="@+id/btnLogin"
+                        android:background="@drawable/bg_btn"
+                        android:layout_marginHorizontal="@dimen/_28sdp"
+                        android:text="Login"
+                        android:textSize="22sp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/signika"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/v_login"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_150sdp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

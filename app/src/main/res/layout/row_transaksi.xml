@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/cardTransaksi"
+    app:cardCornerRadius="6dp"
+    android:elevation="2sp"
+    android:layout_marginHorizontal="@dimen/_20sdp"
+    android:layout_marginVertical="@dimen/_10sdp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:padding="@dimen/_4sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtNamaBarang"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/black"
+            android:text="Nama Barang"
+            android:fontFamily="@font/signika"
+            android:paddingStart="@dimen/_5sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txtHargaBarang"
+            android:text="Rp. 999.999.999"
+            android:fontFamily="@font/signika"
+            android:paddingStart="@dimen/_5sdp"
+            android:layout_below="@id/txtNamaBarang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnTambah"
+            android:visibility="visible"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/txtNamaBarang"
+            android:background="@drawable/btn_tambah"
+            android:text="Tambah"
+            android:fontFamily="@font/pt_sans"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_8sdp"
+            android:layout_width="wrap_content" />
+        <LinearLayout
+            android:id="@+id/linearTambahKurang"
+            android:visibility="gone"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/txtNamaBarang"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/minus"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_21sdp"
+                android:background="@drawable/minus" />
+            <TextView
+                android:id="@+id/banyakBarang"
+                android:text="X"
+                android:textSize="20sp"
+                android:layout_marginHorizontal="@dimen/_4sdp"
+                android:fontFamily="@font/signika"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/add"
+                android:background="@drawable/plus"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_21sdp"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

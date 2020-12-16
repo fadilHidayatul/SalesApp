@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Transaksi.ScanActivity">
+
+    <ImageView
+        android:id="@+id/background"
+        android:background="@drawable/bg_scan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.budiyev.android.codescanner.CodeScannerView
+        android:id="@+id/scannerView"
+        app:autoFocusButtonColor="@color/white"
+        app:autoFocusButtonVisible="false"
+        app:flashButtonColor="@color/white"
+        app:flashButtonVisible="true"
+        app:frameAspectRatioHeight="1"
+        app:frameAspectRatioWidth="1"
+        app:frameColor="@color/white"
+        app:frameSize="1"
+        app:frameThickness="@dimen/_1sdp"
+        app:maskColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

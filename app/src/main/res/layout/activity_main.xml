@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context=".Main.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="6">
+        <RelativeLayout
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/hi"
+                android:layout_above="@id/welcome"
+                android:text="Hi "
+                android:textStyle="bold"
+                android:fontFamily="@font/pt_sans"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_18sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/txtusername"
+                android:layout_toRightOf="@+id/hi"
+                android:layout_above="@id/welcome"
+                android:text="Nama Pengguna "
+                android:textColor="@color/white"
+                android:fontFamily="@font/pt_sans"
+                android:textStyle="bold"
+                android:textSize="@dimen/_18sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/welcome"
+                android:text="Welcome"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:paddingBottom="@dimen/_25sdp"
+                android:textSize="@dimen/_14sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:background="@drawable/back_home"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="Menu"
+            android:textColor="@color/black"
+            android:padding="@dimen/_16sdp"
+            android:textSize="@dimen/_12sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/row_main"
+            android:layout_margin="@dimen/_12sdp" />
+    </LinearLayout>
+
+</LinearLayout>
