@@ -15,7 +15,7 @@
         <activity android:name=".History.HistoryActivity"></activity>
         <activity android:name=".Transaksi.ScanActivity" />
         <activity android:name=".Transaksi.TransaksiActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

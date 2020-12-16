@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sales.History.HistoryActivity;
-import com.example.sales.Main.MainActivity;
 import com.example.sales.R;
+import com.example.sales.SharedPreferences.PrefManager;
 import com.example.sales.Transaksi.Model.Customer;
 import com.example.sales.UtilsApi.ApiInterface;
 import com.example.sales.UtilsApi.UtilsApi;
@@ -39,6 +39,7 @@ public class TransaksiActivity extends AppCompatActivity {
     TransaksiAdapter transaksiAdapter;
     Context context;
     ApiInterface apiInterface;
+    PrefManager manager;
 
     @BindView(R.id.recycler_toko)
     RecyclerView recyclerToko;
@@ -46,6 +47,8 @@ public class TransaksiActivity extends AppCompatActivity {
     CardView cardScan;
     @BindView(R.id.txtNamaToko)
     TextView txtNamaToko;
+    @BindView(R.id.txtusername)
+    TextView txtusername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,22 +57,19 @@ public class TransaksiActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         context = this;
         apiInterface = UtilsApi.getApiService();
+        manager = new PrefManager(context);
 
-        Intent intent= getIntent();
+        txtusername.setText(manager.getNamaSales());
+
+        Intent intent = getIntent();
         String id = intent.getStringExtra("id");
-        if (TextUtils.isEmpty(id)){
+        if (TextUtils.isEmpty(id)) {
             txtNamaToko.setText("Toko belum di dapatkan");
             recyclerToko.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             fetchDataToko(id);
         }
 
-
-        recyclerToko.setLayoutManager(new LinearLayoutManager(this));
-        transaksiAdapter = new TransaksiAdapter(context);
-        recyclerToko.setAdapter(transaksiAdapter);
-        recyclerToko.setHasFixedSize(true);
-        recyclerToko.setNestedScrollingEnabled(false);
 
         cardScan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,17 +84,23 @@ public class TransaksiActivity extends AppCompatActivity {
         apiInterface.getDataCustomer(id).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     try {
                         JSONObject object = new JSONObject(response.body().string());
-                        if (object.getString("status").equals("200")){
+                        if (object.getString("status").equals("200")) {
                             JSONObject data = object.getJSONObject("data");
 
                             Gson gson = new Gson();
-                            Customer.DataBean customer = gson.fromJson(data+"",Customer.DataBean.class);
-
+                            Customer.DataBean customer = gson.fromJson(data + "", Customer.DataBean.class);
                             txtNamaToko.setText(customer.getNama_perusahaan());
-                        }else {
+
+                            recyclerToko.setLayoutManager(new LinearLayoutManager(context));
+                            transaksiAdapter = new TransaksiAdapter(context);
+                            recyclerToko.setAdapter(transaksiAdapter);
+                            recyclerToko.setHasFixedSize(true);
+                            recyclerToko.setNestedScrollingEnabled(false);
+
+                        } else {
                             Toast.makeText(context, "Respon Gagal", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
@@ -102,10 +108,10 @@ public class TransaksiActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }else{
+                } else {
                     try {
                         JSONObject object = new JSONObject(response.errorBody().string());
-                        Toast.makeText(context, ""+object.getString("status"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "" + object.getString("status"), Toast.LENGTH_SHORT).show();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     } catch (IOException e) {

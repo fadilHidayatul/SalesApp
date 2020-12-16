@@ -12,4 +12,10 @@ public interface ApiInterface {
     @POST("getCustomer")
     Call<ResponseBody> getDataCustomer( @Field("customer_id") String cus_id
     );
+
+    @FormUrlEncoded
+    @POST("loginsales")
+    Call<ResponseBody> loginSales(@Field("username") String username,
+                                  @Field("password") String password
+    );
 }
