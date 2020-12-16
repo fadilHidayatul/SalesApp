@@ -9,6 +9,7 @@
     tools:context=".Transaksi.TransaksiActivity">
 
     <LinearLayout
+        android:id="@+id/linear_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -16,7 +17,6 @@
         <RelativeLayout
             android:layout_marginVertical="@dimen/_20sdp"
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/imgUser"
@@ -62,9 +62,11 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/linear_scan"
             android:orientation="horizontal"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
+            android:visibility="visible"
             android:layout_height="match_parent">
             <RelativeLayout
                 android:id="@+id/r1"

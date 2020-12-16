@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,10 @@ public class TransaksiActivity extends AppCompatActivity {
     TextView txtNamaToko;
     @BindView(R.id.txtusername)
     TextView txtusername;
+    @BindView(R.id.linear_scan)
+    LinearLayout linearScan;
+    @BindView(R.id.linear_background)
+    LinearLayout linearBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,12 @@ public class TransaksiActivity extends AppCompatActivity {
             txtNamaToko.setText("Toko belum di dapatkan");
             recyclerToko.setVisibility(View.INVISIBLE);
         } else {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linearBackground.getLayoutParams();
+            params.height = 180;
+            linearBackground.setLayoutParams(params);
+
+            linearScan.setVisibility(View.GONE);
+
             fetchDataToko(id);
         }
 

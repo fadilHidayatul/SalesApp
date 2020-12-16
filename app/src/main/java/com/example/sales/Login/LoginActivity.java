@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }else if(TextUtils.isEmpty(inputPassword.getText().toString())){
                     inputPassword.setError("Masukkan Password");
+                    return;
                 }else{
                     apiInterface.loginSales(inputUsername.getText().toString(), inputPassword.getText().toString()).enqueue(new Callback<ResponseBody>() {
                         @Override
