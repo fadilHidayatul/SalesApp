@@ -36,12 +36,18 @@ public class AddAdapter extends RecyclerView.Adapter<AddAdapter.ListViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         final Add model = adds.get(position);
-        holder.qty.setText(model.getText());
+
+        String ap = model.getText();
+        String[] parts = ap.split(" ");
+        String ready = parts[0];
+        String text = parts[1];
+        String value = parts[2];
+
+        holder.qty.setText(text);
 
         holder.tambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 int banyak = Integer.valueOf(holder.qty.getText().toString())+1;
                 holder.jml.setText(banyak);
             }
