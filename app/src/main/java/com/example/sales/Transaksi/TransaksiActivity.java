@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,18 +17,26 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.sales.History.HistoryActivity;
 import com.example.sales.R;
 import com.example.sales.SharedPreferences.PrefManager;
 import com.example.sales.Transaksi.Model.Customer;
+import com.example.sales.Transaksi.Model.Transaksi;
 import com.example.sales.UtilsApi.ApiInterface;
 import com.example.sales.UtilsApi.UtilsApi;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,16 +64,24 @@ public class TransaksiActivity extends AppCompatActivity {
     @BindView(R.id.linear_background)
     LinearLayout linearBackground;
 
+    List<Transaksi> transaksi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaksi);
+        AndroidNetworking.initialize(this);
         ButterKnife.bind(this);
         context = this;
         apiInterface = UtilsApi.getApiService();
         manager = new PrefManager(context);
 
         txtusername.setText(manager.getNamaSales());
+
+        recyclerToko.setHasFixedSize(true);
+        recyclerToko.setNestedScrollingEnabled(false);
+        recyclerToko.setLayoutManager(new LinearLayoutManager(context));
+        transaksi = new ArrayList<>();
 
         Intent intent = getIntent();
         String id = intent.getStringExtra("id");
@@ -105,11 +122,7 @@ public class TransaksiActivity extends AppCompatActivity {
                             Customer.DataBean customer = gson.fromJson(data + "", Customer.DataBean.class);
                             txtNamaToko.setText(customer.getNama_perusahaan());
 
-                            recyclerToko.setLayoutManager(new LinearLayoutManager(context));
-                            transaksiAdapter = new TransaksiAdapter(context);
-                            recyclerToko.setAdapter(transaksiAdapter);
-                            recyclerToko.setHasFixedSize(true);
-                            recyclerToko.setNestedScrollingEnabled(false);
+                            getListItem(id);
 
                         } else {
                             Toast.makeText(context, "Respon Gagal", Toast.LENGTH_SHORT).show();
@@ -136,6 +149,44 @@ public class TransaksiActivity extends AppCompatActivity {
                 Toast.makeText(context, "Koneksi Internet", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void getListItem(String id) {
+        AndroidNetworking.get(UtilsApi.baseUrl + "apiproduk/" + manager.getIdCabang())
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.getString("status").equalsIgnoreCase("200")) {
+                                Log.d("sukses", "code :" + response + manager.getIdCabang());
+                                JSONArray d = response.getJSONArray("produk");
+                                for (int i = 0; i < d.length(); i++) {
+                                    JSONObject data = d.getJSONObject(i);
+                                    transaksi.add(new Transaksi(
+                                            data.getString("stok_id"),
+                                            data.getString("produk_id"),
+                                            data.getString("produk_nama"),
+                                            data.getString("quantity"),
+                                            data.getString("capital_price")
+                                    ));
+                                }
+                                transaksiAdapter = new TransaksiAdapter(transaksi);
+                                recyclerToko.setAdapter(transaksiAdapter);
+                                transaksiAdapter.notifyDataSetChanged();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        Toast.makeText(context, "Koneksi Internet", Toast.LENGTH_SHORT).show();
+                        Log.d("Error", "code :" + anError);
+                    }
+                });
     }
 
     private void moveToScan() {
