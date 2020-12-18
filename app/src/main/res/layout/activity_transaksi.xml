@@ -18,38 +18,45 @@
             android:layout_marginVertical="@dimen/_20sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/imgUser"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:src="@drawable/ic_account"
-                android:layout_centerVertical="true"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"/>
-            <TextView
-                android:id="@+id/hi"
-                android:text="Hi "
-                android:layout_toRightOf="@id/imgUser"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:textStyle="bold"
-                android:fontFamily="@font/pt_sans"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sdp"
+            <LinearLayout
+                android:id="@+id/linearProfile"
+                android:onClick="moveToProfile"
+                android:gravity="center_vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/txtusername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="0dp"
-                android:layout_toRightOf="@id/hi"
-                android:fontFamily="@font/pt_sans"
-                android:text="Nama Pengguna "
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sdp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/imgUser"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:src="@drawable/ic_account"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"/>
+                <TextView
+                    android:id="@+id/hi"
+                    android:text="Hi "
+                    android:layout_toRightOf="@id/imgUser"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/pt_sans"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/txtusername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_toRightOf="@id/hi"
+                    android:fontFamily="@font/pt_sans"
+                    android:text="Nama Pengguna "
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/cart"

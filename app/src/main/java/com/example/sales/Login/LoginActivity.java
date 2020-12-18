@@ -52,13 +52,15 @@ public class LoginActivity extends AppCompatActivity {
         apiInterface = UtilsApi.getApiService();
         manager = new PrefManager(context);
 
+        fetchLogin();
+
         if (!manager.getIdSales().equalsIgnoreCase("")){
             Intent intent = new Intent(getApplicationContext(), TransaksiActivity.class);
             startActivity(intent);
             finish();
         }
 
-        fetchLogin();
+
     }
 
     private void fetchLogin() {

@@ -22,6 +22,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.sales.History.HistoryActivity;
+import com.example.sales.Profile.ProfileActivity;
 import com.example.sales.R;
 import com.example.sales.SharedPreferences.PrefManager;
 import com.example.sales.Transaksi.Model.Customer;
@@ -63,8 +64,11 @@ public class TransaksiActivity extends AppCompatActivity {
     LinearLayout linearScan;
     @BindView(R.id.linear_background)
     LinearLayout linearBackground;
+    @BindView(R.id.linearProfile)
+    LinearLayout linearProfile;
 
     List<Transaksi> transaksi;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,5 +229,10 @@ public class TransaksiActivity extends AppCompatActivity {
     public void moveToHistory(View view) {
         Intent moveHistory = new Intent(context, HistoryActivity.class);
         startActivity(moveHistory);
+    }
+
+    public void moveToProfile(View view) {
+        Intent moveProfile = new Intent(context, ProfileActivity.class);
+        startActivity(moveProfile);
     }
 }
