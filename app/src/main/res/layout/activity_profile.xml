@@ -99,6 +99,7 @@
                     <TextView
                         android:id="@+id/txtProfileIdSales"
                         android:text="99999"
+                        android:textSize="@dimen/_12sdp"
                         android:textColor="@color/black"
                         android:gravity="center_vertical"
                         android:paddingVertical="@dimen/_10sdp"
