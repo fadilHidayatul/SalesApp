@@ -276,7 +276,6 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
 //                        Intent goHome = new Intent(context, MainActivity.class);
 //                        goHome.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 //                        startActivity(goHome);
