@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_50sdp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginBottom="@dimen/_10sdp"
+    android:layout_marginRight="20dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Bottom View Start-->
+    <androidx.cardview.widget.CardView
+        app:cardBackgroundColor="@color/error"
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="70dp"
+        android:weightSum="1"
+        app:cardElevation="0dp"
+        android:layout_height="@dimen/_50sdp"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/btnDelete"
+            android:layout_centerInParent="true"
+            android:tint="@color/white"
+            android:src="@drawable/ic_delete_black_24dp"/>
+        </RelativeLayout>
+        <!--What you want to show-->
+    </androidx.cardview.widget.CardView>
+
+    <!-- Bottom View End-->
+
+    <!-- Surface View Start -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="10dp"
+        android:id="@+id/cardBerita">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_50sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/design_default_color_primary"
+                    android:text="Caption"
+                    android:maxLines="2"
+                    android:id="@+id/namaProduk"
+                    android:fontFamily="@font/signika"
+                    android:textStyle="bold"
+                    android:textSize="18dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="Rp. 100.000,00"
+                    android:fontFamily="@font/signika"
+                    android:id="@+id/hargaProduk"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20 box"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="10dp"
+                android:id="@+id/quantiti"
+                android:fontFamily="@font/signika"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+    <!-- Surface View End -->
+</com.daimajia.swipe.SwipeLayout>

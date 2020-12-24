@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:orientation="vertical"
-    android:layout_marginRight="@dimen/_10sdp"
+    android:layout_marginLeft="20dp"
     android:layout_height="55dp">
 
     <TextView
@@ -16,7 +16,6 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-5dp"
         android:orientation="horizontal">
 
     <Button
@@ -29,9 +28,9 @@
         android:id="@+id/banyak"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginHorizontal="@dimen/_4sdp"
         android:fontFamily="@font/signika"
+        android:enabled="false"
         android:text="0"
         android:layout_marginBottom="-4dp"
         android:inputType="phone"

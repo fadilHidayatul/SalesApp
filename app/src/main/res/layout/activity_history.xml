@@ -6,11 +6,101 @@
     android:layout_height="match_parent"
     tools:context=".History.HistoryActivity">
 
-    <TextView
-        android:text="History"
-        android:textSize="@dimen/_40sdp"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <ImageView
+        android:id="@+id/imgBg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_scan"
+        android:layout_marginTop="-132dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_height="@dimen/_50sdp">
+        <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+            android:tint="@color/white"
+            android:id="@+id/back"/>
+        <TextView
+            android:id="@+id/txtDetailTransaksi"
+            android:text="Detail Transaksi"
+            android:textColor="@color/white"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/pt_sans"
+            android:textSize="@dimen/_20sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_below="@id/imgBg"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/_60sdp"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginHorizontal="@dimen/_18sdp"
+            android:layout_marginBottom="@dimen/_18sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rvHistori"
+            android:scrollbars="none"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:text="ⓘ Swipe ke kiri untuk menghapus produk"
+            android:textAlignment="center"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/stroke"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:id="@+id/rekapBtn"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_10sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Pembayaran :"
+                android:fontFamily="@font/signika"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rp 1000"
+            android:fontFamily="@font/signika"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18dp"
+            android:id="@+id/hargaTotal"/>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/next"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:tint="@color/colorPrimary"
+            android:layout_marginRight="@dimen/_10sdp"/>
+    </RelativeLayout>
+
+
 
 </RelativeLayout>

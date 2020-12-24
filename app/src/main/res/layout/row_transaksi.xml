@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardTransaksi"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:backgroundTint="@color/cardTransaksi">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginVertical="@dimen/_10sdp"
-        app:cardCornerRadius="6dp"
         android:translationZ="4dp"
+        app:cardCornerRadius="6dp"
         app:cardElevation="1sp">
 
         <RelativeLayout
@@ -49,64 +48,77 @@
                 android:fontFamily="@font/pt_sans"
                 android:text="20 box 1 katyon"
                 android:textColor="@color/black" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_90sdp"
-        android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_marginVertical="@dimen/_10sdp"
-        app:cardCornerRadius="6dp"
-        app:cardElevation="4dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:textSize="@dimen/_18sdp"
-                android:textColor="@color/white"
-                android:background="@drawable/shape"
-                android:paddingLeft="@dimen/_20sdp"
-                android:paddingRight="@dimen/_20sdp"
-                android:paddingTop="@dimen/_1sdp"
-                android:paddingBottom="@dimen/_1sdp"
-                android:layout_marginBottom="@dimen/_7sdp"
-                android:visibility="visible"
-                android:id="@+id/btnAdd"/>
-            
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/_1sdp"
-                tools:listitem="@layout/row_add"
-                android:visibility="gone"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:id="@+id/rvAdd"/>
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_delete_black_24dp"
-                android:layout_alignParentBottom="true"
+                android:id="@+id/stat"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
                 android:layout_alignParentRight="true"
-                android:layout_margin="@dimen/_9sdp"
-                android:tint="#C14C615C"
-                android:id="@+id/deleteItem"
-                android:layout_toRightOf="@+id/rvAdd"
+                android:src="@drawable/ic_check_circle_black_24dp"
+                android:tint="@color/design_default_color_primary"
                 android:visibility="gone"/>
-                
-
 
         </RelativeLayout>
-
     </androidx.cardview.widget.CardView>
+
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/_90sdp"-->
+    <!--        android:layout_marginHorizontal="@dimen/_20sdp"-->
+    <!--        android:layout_marginVertical="@dimen/_10sdp"-->
+    <!--        app:cardCornerRadius="6dp"-->
+    <!--        app:cardElevation="4dp">-->
+
+    <!--        <RelativeLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent">-->
+
+
+    <!--            <TextView-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:text="Add"-->
+    <!--                android:translationZ="-1dp"-->
+    <!--                android:layout_centerHorizontal="true"-->
+    <!--                android:layout_alignParentBottom="true"-->
+    <!--                android:textSize="@dimen/_13sdp"-->
+    <!--                android:textColor="@color/white"-->
+    <!--                android:background="@drawable/shape"-->
+    <!--                android:paddingLeft="@dimen/_20sdp"-->
+    <!--                android:paddingRight="@dimen/_20sdp"-->
+    <!--                android:paddingTop="@dimen/_1sdp"-->
+    <!--                android:paddingBottom="@dimen/_1sdp"-->
+    <!--                android:layout_marginBottom="@dimen/_7sdp"-->
+    <!--                android:visibility="visible"-->
+    <!--                android:id="@+id/btnAdd"/>-->
+    <!--            -->
+    <!--            <androidx.recyclerview.widget.RecyclerView-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_alignParentBottom="true"-->
+    <!--                android:layout_centerHorizontal="true"-->
+    <!--                android:layout_marginBottom="@dimen/_1sdp"-->
+    <!--                tools:listitem="@layout/row_add"-->
+    <!--                android:visibility="gone"-->
+    <!--                android:layout_marginLeft="@dimen/_20sdp"-->
+    <!--                android:id="@+id/rvAdd"/>-->
+
+    <!--            <ImageView-->
+    <!--                android:layout_width="30dp"-->
+    <!--                android:layout_height="30dp"-->
+    <!--                android:src="@drawable/ic_delete_black_24dp"-->
+    <!--                android:layout_alignParentBottom="true"-->
+    <!--                android:layout_alignParentRight="true"-->
+    <!--                android:layout_margin="@dimen/_9sdp"-->
+    <!--                android:tint="#C14C615C"-->
+    <!--                android:id="@+id/deleteItem"-->
+    <!--                android:layout_toRightOf="@+id/rvAdd"-->
+    <!--                android:visibility="gone"/>-->
+    <!--                -->
+
+
+    <!--        </RelativeLayout>-->
+
+    <!--    </androidx.cardview.widget.CardView>-->
 
 </RelativeLayout>

@@ -4,45 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".Transaksi.TransaksiActivity">
 
     <LinearLayout
         android:id="@+id/linear_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/back_scan">
+        android:background="@drawable/back_scan"
+        android:orientation="vertical">
+
         <RelativeLayout
-            android:layout_marginVertical="@dimen/_20sdp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_20sdp">
+
             <LinearLayout
                 android:id="@+id/linearProfile"
-                android:onClick="moveToProfile"
-                android:gravity="center_vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:onClick="moveToProfile">
+
                 <ImageView
                     android:id="@+id/imgUser"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:src="@drawable/ic_account"
-                    android:layout_centerVertical="true"
                     android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"/>
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:src="@drawable/ic_account" />
+
                 <TextView
                     android:id="@+id/hi"
-                    android:text="Hi "
-                    android:layout_toRightOf="@id/imgUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:textStyle="bold"
+                    android:layout_toRightOf="@id/imgUser"
                     android:fontFamily="@font/pt_sans"
+                    android:text="Hi "
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/txtusername"
                     android:layout_width="wrap_content"
@@ -60,100 +65,172 @@
 
             <ImageView
                 android:id="@+id/cart"
-                android:src="@drawable/ic_cart"
-                android:onClick="moveToHistory"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"/>
+                android:visibility="gone"
+                android:onClick="moveToHistory"
+                android:src="@drawable/ic_cart" />
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/linear_scan"
-            android:orientation="horizontal"
-            android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
-            android:visibility="visible"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
             <RelativeLayout
                 android:id="@+id/r1"
-                android:layout_weight="3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="3">
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardScan"
-                    app:cardCornerRadius="@dimen/_12sdp"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:alpha="0.5"
-                    android:layout_width="@dimen/_60sdp"
-                    android:layout_height="@dimen/_60sdp">
+                    app:cardCornerRadius="@dimen/_12sdp">
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
                         <ImageView
-                            android:src="@drawable/camera_test"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:alpha="0.8"
                             android:padding="@dimen/_7sdp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:src="@drawable/camera_test" />
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/r2"
-                android:layout_weight="2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+
                 <TextView
-                    android:text="Scan Untuk\nMencari Toko"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/signika"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:fontFamily="@font/signika"
+                    android:text="Scan Untuk\nMencari Toko"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
             </RelativeLayout>
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <RelativeLayout
-            android:layout_marginVertical="@dimen/_10sdp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_10sdp">
+
             <TextView
                 android:id="@+id/txtNamaToko"
-                android:text="Nama Toko/Kedai"
-                android:textSize="20sp"
-                android:fontFamily="@font/pt_sans"
-                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:fontFamily="@font/pt_sans"
+                android:text="Nama Toko/Kedai"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <ImageView
-                android:src="@drawable/store"
-                android:layout_toLeftOf="@id/txtNamaToko"
-                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"/>
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_toLeftOf="@id/txtNamaToko"
+                android:src="@drawable/store" />
         </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_toko"
-            android:scrollbars="none"
-            tools:itemCount="12"
-            tools:listitem="@layout/row_transaksi"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_toko"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                tools:itemCount="12"
+                android:layout_marginBottom="80dp"
+                tools:listitem="@layout/row_transaksi" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/_20sdp"
+                android:id="@+id/btnProses"
+                android:visibility="gone"
+                android:layout_height="90dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:layout_marginBottom="20dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/stroke" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:src="@drawable/next"
+                            android:tint="@color/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/jmlItem"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/signika"
+                                android:text="0 Item"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_15sdp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Siap Untuk Di Proses" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+
+
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
 </LinearLayout>
