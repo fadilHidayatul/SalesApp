@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/signika"
                 android:textAlignment="center"
-                android:text="Test Application"
+                android:text="Aplikasi Penjualan Sales"
                 android:textColor="@color/black"
                 android:textSize="40sp" />
         </LinearLayout>

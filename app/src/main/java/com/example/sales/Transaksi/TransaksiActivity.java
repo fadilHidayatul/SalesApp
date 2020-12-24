@@ -319,6 +319,10 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
                             alertDialog.hide();
                             if (response.getString("data").length()>0){
                                 JSONArray d = response.getJSONArray("data");
+                                btnProses.setVisibility(View.VISIBLE);
+                                if (d.length() == 0){
+                                    btnProses.setVisibility(View.GONE);
+                                }
                                 for (int i = 0; i < d.length(); i++) {
                                     JSONObject data = d.getJSONObject(i);
                                     jmlItem.setText((d.length())+" item");

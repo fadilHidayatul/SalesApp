@@ -95,22 +95,22 @@ public class HistoryActivity extends AppCompatActivity implements OnDelete, OnGe
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void simpanData() {
         alertDialog.show();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime now = LocalDateTime.now();
-//        System.out.println(dtf.format(now));
         alertDialog.setMessage("Simpan data...");
+
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        LocalDateTime now = LocalDateTime.now();
         AndroidNetworking.post(UtilsApi.baseUrl+"rekaptransaksi")
                 .addBodyParameter("customerid", id_customer)
                 .addBodyParameter("dp", "")
                 .addBodyParameter("id_user", ""+prefManager.getIdCabang())
-                .addBodyParameter("invoicedate", dtf.format(now))
+                .addBodyParameter("invoicedate", "2020-12-12")
                 .addBodyParameter("invoiceid", invoice)
                 .addBodyParameter("note","")
                 .addBodyParameter("potongan", "")
                 .addBodyParameter("radiocash", "Cash")
                 .addBodyParameter("salesmanid", prefManager.getIdSales())
                 .addBodyParameter("salestype", "CANVASING")
-                .addBodyParameter("term_util", dtf.format(now))
+                .addBodyParameter("term_util", "2020-12-12")
                 .addBodyParameter("totalsales", totalI+"")
                 .addBodyParameter("warehouse", "")
                 .setPriority(Priority.MEDIUM)
@@ -136,7 +136,7 @@ public class HistoryActivity extends AppCompatActivity implements OnDelete, OnGe
                         alertDialog.hide();
                         Toast.makeText(getApplicationContext(), "Transaksi gagal", Toast.LENGTH_SHORT).show();
 
-                        Log.d("eror", "code :"+anError+"| idc ; "+id_customer+"| id_u ="+prefManager.getIdCabang()+"| date :"+dtf.format(now)+"| invc :"+invoice+"| ");
+//                        Log.d("eror", "code :"+anError+"| idc ; "+id_customer+"| id_u ="+prefManager.getIdCabang()+"| date :"+datedtf.format(now)+"| invc :"+invoice+"| ");
                     }
                 });
     }
@@ -212,5 +212,13 @@ public class HistoryActivity extends AppCompatActivity implements OnDelete, OnGe
     @Override
     public void onUpdateBarang(int val, String jenis) {
         getData();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        Intent intent = new Intent(HistoryActivity.this, TransaksiActivity.class);
+        intent.putExtra("id", id_customer);
+        startActivity(intent);
     }
 }

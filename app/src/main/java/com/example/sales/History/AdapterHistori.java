@@ -87,7 +87,7 @@ public class AdapterHistori extends RecyclerView.Adapter<AdapterHistori.ListView
                             if (response.getString("status").equalsIgnoreCase("200")){
                                 Toast.makeText(context, "terhapus "+model.getId_transaksi_tmp(), Toast.LENGTH_SHORT).show();
                                 delete.deleteItem();
-                                transaksiInterface.onUpdateBarang(0, 0,Double.valueOf("0"), "tambah");
+                                //transaksiInterface.onUpdateBarang(0, 0,Double.valueOf("0"), "tambah");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
