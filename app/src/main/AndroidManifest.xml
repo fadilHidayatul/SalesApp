@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Profile.ProfileActivity"></activity>
+        <activity android:name=".hist.HistActivity"></activity>
+        <activity android:name=".Profile.ProfileActivity" />
         <activity android:name=".History.HistoryActivity" />
         <activity android:name=".Transaksi.ScanActivity" />
         <activity android:name=".Transaksi.TransaksiActivity" />
