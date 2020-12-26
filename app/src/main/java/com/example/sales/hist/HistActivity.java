@@ -61,7 +61,7 @@ public class HistActivity extends AppCompatActivity {
 
     private void getHist() {
         alertDialog.show();
-        AndroidNetworking.post("/bumil/get_histori.php")
+        AndroidNetworking.post("/bumil /get_histori.php")
                 .addBodyParameter("id", prefManager.getIdSales())
                 .setPriority(Priority.MEDIUM)
                 .build()
