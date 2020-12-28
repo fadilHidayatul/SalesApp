@@ -120,6 +120,10 @@ public class HistoryActivity extends AppCompatActivity implements OnDelete, OnGe
         alertDialog.show();
         alertDialog.setMessage("Simpan data...");
 
+        if (totalI == 0 ){
+            Toast.makeText(this, "Transaksi tidak bisa dilanjutkan", Toast.LENGTH_SHORT).show();
+        }
+
 //        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //        LocalDateTime now = LocalDateTime.now();
         SimpleDateFormat current = new SimpleDateFormat("yyyy-MM-dd");

@@ -27,7 +27,6 @@
             android:layout_height="@dimen/_30sdp"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:onClick="backToTransaksi"
             android:tint="@color/white"
             android:id="@+id/back"/>
         <TextView

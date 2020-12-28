@@ -1,22 +1,21 @@
 package com.example.sales.hist;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.example.sales.History.AdapterHistori;
-import com.example.sales.History.ModelHistori;
 import com.example.sales.R;
 import com.example.sales.SharedPreferences.PrefManager;
 import com.example.sales.Transaksi.TransaksiActivity;
@@ -29,28 +28,36 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import dmax.dialog.SpotsDialog;
 
 public class HistActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    android.app.AlertDialog alertDialog;
+    AlertDialog alertDialog;
     SwipeRefreshLayout swipeRefreshLayout;
     ImageView back;
-    List<ModelHist>hists;
+    List<ModelHist> hists;
     PrefManager prefManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hist);
+        ButterKnife.bind(this);
         prefManager = new PrefManager(this);
-        alertDialog =new SpotsDialog.Builder().setContext(this).setMessage("Sedang Mengambil Data ....").setCancelable(false).build();
+        alertDialog = new SpotsDialog.Builder().setContext(this).setMessage("Sedang Mengambil Data ....").setCancelable(false).build();
         AndroidNetworking.initialize(this);
 
         back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), TransaksiActivity.class);
                 finish();
+                intent.putExtra("id","");
+                startActivity(intent);
+
             }
         });
 
@@ -63,7 +70,7 @@ public class HistActivity extends AppCompatActivity {
 
     private void getHist() {
         alertDialog.show();
-        AndroidNetworking.post("http://192.168.100.35/distribusi/get_histori.php")
+        AndroidNetworking.post("http://192.168.100.215/distribusi/get_histori.php")
                 .addBodyParameter("id", prefManager.getIdSales())
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -72,7 +79,7 @@ public class HistActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             alertDialog.hide();
-                            if (response.getString("kode").equalsIgnoreCase("1")){
+                            if (response.getString("kode").equalsIgnoreCase("1")) {
                                 JSONArray d = response.getJSONArray("data");
                                 hists = new ArrayList<>();
                                 hists.clear();
@@ -83,7 +90,7 @@ public class HistActivity extends AppCompatActivity {
                                     hists.add(his);
                                 }
                                 getAdapter();
-                            }else {
+                            } else {
                                 Toast.makeText(getApplicationContext(), response.getString("pesan"), Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
@@ -94,7 +101,7 @@ public class HistActivity extends AppCompatActivity {
                     @Override
                     public void onError(ANError anError) {
                         alertDialog.hide();
-                        Toast.makeText(getApplicationContext(), ""+anError, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "" + anError, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -109,13 +116,9 @@ public class HistActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(getApplicationContext(), TransaksiActivity.class);
-        intent.putExtra("id","");
+        intent.putExtra("id", "");
         startActivity(intent);
     }
 
-    public void backToTransaksi(View view) {
-        Intent intent = new Intent(getApplicationContext(), TransaksiActivity.class);
-        intent.putExtra("id","");
-        startActivity(intent);
-    }
+
 }
