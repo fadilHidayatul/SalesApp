@@ -79,6 +79,7 @@ public class HistoryActivity extends AppCompatActivity implements OnDelete, OnGe
         });
 
         rekap = findViewById(R.id.rekapBtn);
+        rekap.setVisibility(View.VISIBLE);
         rekap.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -124,8 +125,6 @@ public class HistoryActivity extends AppCompatActivity implements OnDelete, OnGe
             Toast.makeText(this, "Transaksi tidak bisa dilanjutkan", Toast.LENGTH_SHORT).show();
         }
 
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        LocalDateTime now = LocalDateTime.now();
         SimpleDateFormat current = new SimpleDateFormat("yyyy-MM-dd");
         AndroidNetworking.post(UtilsApi.baseUrl+"rekaptransaksi")
                 .addBodyParameter("customerid", id_customer)
@@ -192,6 +191,9 @@ public class HistoryActivity extends AppCompatActivity implements OnDelete, OnGe
                                     histori.add(his);
                                 }
                                 getAdapter();
+                                if(histori.isEmpty()){
+                                    rekap.setVisibility(View.GONE);
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
