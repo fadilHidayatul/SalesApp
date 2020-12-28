@@ -76,9 +76,12 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
     int selectItem = -1;
     @Override
     public void onBindViewHolder(@NonNull TransaksiAdapter.viewHolder holder,final int position) {
+        Locale localeID = new Locale("in", "ID");
+        NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
+
         final Transaksi model = transaksi.get(position);
         holder.txtNamaBarang.setText(model.getNama());
-        holder.txtHargaBarang.setText(model.getHarga());
+        holder.txtHargaBarang.setText(formatRupiah.format(Integer.parseInt(model.getHarga())));
         holder.banyakBarang.setText(model.getQty());
 
 //        int a = holder.stat.getVisibility();

@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import com.example.sales.History.AdapterHistori;
 import com.example.sales.History.ModelHistori;
 import com.example.sales.R;
 import com.example.sales.SharedPreferences.PrefManager;
+import com.example.sales.Transaksi.TransaksiActivity;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -61,7 +63,7 @@ public class HistActivity extends AppCompatActivity {
 
     private void getHist() {
         alertDialog.show();
-        AndroidNetworking.post("/bumil /get_histori.php")
+        AndroidNetworking.post("http://192.168.100.35/distribusi/get_histori.php")
                 .addBodyParameter("id", prefManager.getIdSales())
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -104,4 +106,16 @@ public class HistActivity extends AppCompatActivity {
         adapterHist.notifyDataSetChanged();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), TransaksiActivity.class);
+        intent.putExtra("id","");
+        startActivity(intent);
+    }
+
+    public void backToTransaksi(View view) {
+        Intent intent = new Intent(getApplicationContext(), TransaksiActivity.class);
+        intent.putExtra("id","");
+        startActivity(intent);
+    }
 }

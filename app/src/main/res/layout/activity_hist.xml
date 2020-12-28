@@ -17,6 +17,7 @@
         android:src="@drawable/back_scan"
         android:layout_marginTop="-132dp"/>
     <RelativeLayout
+        android:id="@+id/barHistori"
         android:layout_width="match_parent"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginRight="@dimen/_20sdp"
@@ -26,6 +27,7 @@
             android:layout_height="@dimen/_30sdp"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+            android:onClick="backToTransaksi"
             android:tint="@color/white"
             android:id="@+id/back"/>
         <TextView
@@ -41,14 +43,21 @@
 
     </RelativeLayout>
     <androidx.core.widget.NestedScrollView
+        android:layout_below="@id/barHistori"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rvHist"
-            android:layout_marginTop="@dimen/_55sdp"
-            tools:listitem="@layout/row_hist"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/rvHist"
+
+                tools:itemCount="5"
+                tools:listitem="@layout/row_hist"/>
+
+        </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
 

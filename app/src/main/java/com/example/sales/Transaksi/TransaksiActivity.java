@@ -83,6 +83,7 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
 
     android.app.AlertDialog alertDialog;
     String invoice;
+    String id;
 
 
     @Override
@@ -97,7 +98,7 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
         alertDialog =new SpotsDialog.Builder().setContext(this).setMessage("Sedang Mengambil Data ....").setCancelable(false).build();
 
         getInvoice();
-        getData();
+
 
 
         txtusername.setText(manager.getNamaSales());
@@ -108,18 +109,18 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
         transaksi = new ArrayList<>();
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
+        id = intent.getStringExtra("id");
         if (TextUtils.isEmpty(id)) {
             txtNamaToko.setText("Toko belum di dapatkan");
             recyclerToko.setVisibility(View.INVISIBLE);
             btnProses.setVisibility(View.GONE);
         } else {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) linearBackground.getLayoutParams();
-            params.height = 180;
+            params.height = 220;
             linearBackground.setLayoutParams(params);
-            btnProses.setVisibility(View.VISIBLE);
+            //btnProses.setVisibility(View.VISIBLE);
             linearScan.setVisibility(View.GONE);
-
+            getData();
             fetchDataToko(id);
         }
 
@@ -171,7 +172,7 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
                 } else {
                     try {
                         JSONObject object = new JSONObject(response.errorBody().string());
-                        Toast.makeText(context, "" + object.getString("status"), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Gagal " + object.getString("status"), Toast.LENGTH_SHORT).show();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
@@ -279,6 +280,7 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
 //                        Intent goHome = new Intent(context, MainActivity.class);
 //                        goHome.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 //                        startActivity(goHome);
+                        id = "";
                         Intent intent = new Intent(TransaksiActivity.this, TransaksiActivity.class);
                         startActivity(intent);
                         closeOptionsMenu();
@@ -319,10 +321,13 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
                             alertDialog.hide();
                             if (response.getString("data").length()>0){
                                 JSONArray d = response.getJSONArray("data");
-                                btnProses.setVisibility(View.VISIBLE);
+
                                 if (d.length() == 0){
                                     btnProses.setVisibility(View.GONE);
+                                }else{
+                                    btnProses.setVisibility(View.VISIBLE);
                                 }
+
                                 for (int i = 0; i < d.length(); i++) {
                                     JSONObject data = d.getJSONObject(i);
                                     jmlItem.setText((d.length())+" item");

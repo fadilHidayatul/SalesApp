@@ -9,8 +9,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="/media/aditya/pakakeh/Android_linux/AndroidStudioProjects/SalesApp" />
-            <option value="/media/aditya/pakakeh/Android_linux/AndroidStudioProjects/SalesApp/app" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

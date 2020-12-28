@@ -1,10 +1,12 @@
 package com.example.sales.History;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ import com.example.sales.UtilsApi.OnDelete;
 import com.example.sales.UtilsApi.OnGetHarga;
 import com.example.sales.UtilsApi.TransaksiInterface;
 import com.example.sales.UtilsApi.UtilsApi;
+import com.example.sales.hist.HistActivity;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -34,9 +37,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -77,7 +83,23 @@ public class HistoryActivity extends AppCompatActivity implements OnDelete, OnGe
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
-                simpanData();
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage("Apakah Anda Yakin Memesan Barang Ini?")
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                simpanData();
+                            }
+                        })
+                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
             }
         });
 
@@ -91,6 +113,7 @@ public class HistoryActivity extends AppCompatActivity implements OnDelete, OnGe
 
         getData();
     }
+
     int totalI = 0;
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void simpanData() {
@@ -99,18 +122,19 @@ public class HistoryActivity extends AppCompatActivity implements OnDelete, OnGe
 
 //        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //        LocalDateTime now = LocalDateTime.now();
+        SimpleDateFormat current = new SimpleDateFormat("yyyy-MM-dd");
         AndroidNetworking.post(UtilsApi.baseUrl+"rekaptransaksi")
                 .addBodyParameter("customerid", id_customer)
                 .addBodyParameter("dp", "")
                 .addBodyParameter("id_user", ""+prefManager.getIdCabang())
-                .addBodyParameter("invoicedate", "2020-12-12")
+                .addBodyParameter("invoicedate", ""+current.format(new Date()))
                 .addBodyParameter("invoiceid", invoice)
                 .addBodyParameter("note","")
                 .addBodyParameter("potongan", "")
                 .addBodyParameter("radiocash", "Cash")
                 .addBodyParameter("salesmanid", prefManager.getIdSales())
                 .addBodyParameter("salestype", "CANVASING")
-                .addBodyParameter("term_util", "2020-12-12")
+                .addBodyParameter("term_util", ""+current.format(new Date()))
                 .addBodyParameter("totalsales", totalI+"")
                 .addBodyParameter("warehouse", "")
                 .setPriority(Priority.MEDIUM)
@@ -122,7 +146,8 @@ public class HistoryActivity extends AppCompatActivity implements OnDelete, OnGe
                             alertDialog.hide();
                             if (response.getString("status").equalsIgnoreCase("200")){
                                 Toast.makeText(getApplicationContext(), "Transaksi selesai", Toast.LENGTH_SHORT).show();
-                                finish();
+                                Intent goTransaksi = new Intent(getApplicationContext(), HistActivity.class);
+                                startActivity(goTransaksi);
                             }else {
                                 Toast.makeText(getApplicationContext(), "Transaksi gagal", Toast.LENGTH_SHORT).show();
                             }

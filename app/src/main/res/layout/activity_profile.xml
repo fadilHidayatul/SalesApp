@@ -23,9 +23,10 @@
                 android:onClick="backToPrev"
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_12sdp"
-                android:src="@drawable/ic_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                android:tint="@color/cardTransaksi"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"/>
             <LinearLayout
                 android:id="@+id/logout"
                 android:onClick="logout"

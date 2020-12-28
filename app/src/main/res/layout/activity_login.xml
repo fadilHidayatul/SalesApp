@@ -16,6 +16,7 @@
         <LinearLayout
             android:layout_weight="1"
             android:gravity="center|bottom"
+            android:paddingHorizontal="@dimen/_30sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -24,8 +25,9 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/signika"
                 android:textAlignment="center"
+                android:lines="2"
                 android:text="Aplikasi Penjualan Sales"
-                android:textColor="@color/black"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="40sp" />
         </LinearLayout>
 
@@ -124,6 +126,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:src="@drawable/v_login"
+                android:layout_marginHorizontal="@dimen/_14sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_150sdp"/>
         </LinearLayout>

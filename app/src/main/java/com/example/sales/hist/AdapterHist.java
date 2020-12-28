@@ -42,7 +42,8 @@ public class AdapterHist extends RecyclerView.Adapter<AdapterHist.ListViewHolder
         final ModelHist model = hists.get(position);
         holder.invoice.setText(model.getInvoice_id());
         holder.tgl.setText(model.getInvoice_date());
-        holder.harga.setText(formatRupiah.format(model.getTotalsales()));
+        holder.harga.setText(formatRupiah.format(Integer.parseInt(model.getTotalsales())));
+        holder.status.setText(model.getStatus());
     }
 
     @Override
@@ -51,7 +52,7 @@ public class AdapterHist extends RecyclerView.Adapter<AdapterHist.ListViewHolder
     }
 
     public class ListViewHolder extends RecyclerView.ViewHolder {
-        TextView invoice, tgl, harga;
+        TextView invoice, tgl, harga, status;
         RelativeLayout card;
         public ListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,6 +60,7 @@ public class AdapterHist extends RecyclerView.Adapter<AdapterHist.ListViewHolder
             invoice = itemView.findViewById(R.id.invoice);
             tgl = itemView.findViewById(R.id.tglHist);
             harga = itemView.findViewById(R.id.hargaHist);
+            status = itemView.findViewById(R.id.status);
         }
     }
 }
