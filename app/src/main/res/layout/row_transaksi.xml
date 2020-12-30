@@ -31,14 +31,23 @@
                 android:textSize="@dimen/_12sdp" />
 
             <TextView
-                android:id="@+id/txtHargaBarang"
+                android:id="@+id/txtrp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtNamaBarang"
                 android:fontFamily="@font/signika"
                 android:paddingStart="@dimen/_5sdp"
                 android:textSize="@dimen/_11sdp"
-                android:text="Rp. 999.999.999" />
+                android:text="Rp. " />
+            <TextView
+                android:id="@+id/txtHargaBarang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtNamaBarang"
+                android:layout_toRightOf="@id/txtrp"
+                android:fontFamily="@font/signika"
+                android:textSize="@dimen/_11sdp"
+                android:text="999.999.999" />
 
             <TextView
                 android:id="@+id/banyakBarang"

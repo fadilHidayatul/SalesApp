@@ -62,7 +62,9 @@ public class AdapterHistori extends RecyclerView.Adapter<AdapterHistori.ListView
 
         getHarga.getHarga(model.getAmount(), "1");
 
-        holder.harga.setText(formatRupiah.format(model.getAmount()));
+        String harga = String.valueOf(formatRupiah.format(model.getAmount()));
+
+        holder.harga.setText(harga.substring(2));
         holder.nama.setText(model.getProduk_nama());
         holder.qty.setText(model.getQuantity());
         holder.delete.setOnClickListener(new View.OnClickListener() {

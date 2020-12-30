@@ -1,11 +1,13 @@
 package com.example.sales.hist;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,15 +36,20 @@ public class AdapterHist extends RecyclerView.Adapter<AdapterHist.ListViewHolder
         return holder;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
         final ModelHist model = hists.get(position);
+        String harga = formatRupiah.format(Integer.parseInt(model.getTotalsales()));
+        String tgl = model.getInvoice_date().substring(8,10);
+        String bln = model.getInvoice_date().substring(5,7);
+        String thn = model.getInvoice_date().substring(0,4);
         holder.invoice.setText(model.getInvoice_id());
-        holder.tgl.setText(model.getInvoice_date());
-        holder.harga.setText(formatRupiah.format(Integer.parseInt(model.getTotalsales())));
+        holder.tgl.setText(tgl+"-"+bln+"-"+thn);
+        holder.harga.setText(harga.substring(2));
         holder.status.setText(model.getStatus());
     }
 

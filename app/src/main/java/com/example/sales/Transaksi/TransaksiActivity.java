@@ -159,8 +159,6 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
                             Customer.DataBean customer = gson.fromJson(data + "", Customer.DataBean.class);
                             txtNamaToko.setText(customer.getNama_perusahaan());
 
-
-
                         } else {
                             Toast.makeText(context, "Respon Gagal", Toast.LENGTH_SHORT).show();
                         }

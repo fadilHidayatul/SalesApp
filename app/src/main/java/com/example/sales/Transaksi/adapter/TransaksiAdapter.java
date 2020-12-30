@@ -80,8 +80,9 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
         final Transaksi model = transaksi.get(position);
+        String harga = formatRupiah.format(Integer.parseInt(model.getHarga()));
         holder.txtNamaBarang.setText(model.getNama());
-        holder.txtHargaBarang.setText(formatRupiah.format(Integer.parseInt(model.getHarga())));
+        holder.txtHargaBarang.setText(harga.substring(2));
         holder.banyakBarang.setText(model.getQty());
 
 //        int a = holder.stat.getVisibility();

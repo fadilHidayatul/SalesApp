@@ -70,7 +70,7 @@ public class HistActivity extends AppCompatActivity {
 
     private void getHist() {
         alertDialog.show();
-        AndroidNetworking.post("http://192.168.100.215/distribusi/get_histori.php")
+        AndroidNetworking.post("http://192.168.100.35/distribusi/get_histori.php")
                 .addBodyParameter("id", prefManager.getIdSales())
                 .setPriority(Priority.MEDIUM)
                 .build()
