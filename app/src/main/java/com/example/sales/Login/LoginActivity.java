@@ -156,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onError(ANError anError) {
                                     Log.d("eror", "code : " + anError);
+                                    Toast.makeText(context, ""+anError, Toast.LENGTH_SHORT).show();
                                 }
                             });
                 }

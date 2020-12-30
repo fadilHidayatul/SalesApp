@@ -65,6 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 manager.setIdCabang(PrefManager.ID_CABANG, 0);
                                 Intent doLogout = new Intent(v.getContext(), LoginActivity.class);
                                 doLogout.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                finish();
                                 startActivity(doLogout);
                             }
                         })

@@ -19,6 +19,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.sales.R;
 import com.example.sales.SharedPreferences.PrefManager;
 import com.example.sales.Transaksi.TransaksiActivity;
+import com.example.sales.UtilsApi.UtilsApi;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -70,7 +71,7 @@ public class HistActivity extends AppCompatActivity {
 
     private void getHist() {
         alertDialog.show();
-        AndroidNetworking.post("http://192.168.100.35/distribusi/get_histori.php")
+        AndroidNetworking.post(UtilsApi.baseUrl+"get_histori.php")
                 .addBodyParameter("id", prefManager.getIdSales())
                 .setPriority(Priority.MEDIUM)
                 .build()
