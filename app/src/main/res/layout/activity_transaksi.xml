@@ -166,12 +166,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchBarang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/search_react"
+                app:searchIcon="@drawable/ic_search"
+                android:iconifiedByDefault="false"
+                android:queryHint="Cari barang" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_toko"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="none"
-                tools:itemCount="12"
+                android:layout_below="@id/searchBarang"
                 android:layout_marginBottom="80dp"
                 tools:listitem="@layout/row_transaksi" />
 

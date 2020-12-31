@@ -3,6 +3,7 @@ package com.example.sales.Transaksi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +44,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -54,10 +57,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TransaksiActivity extends AppCompatActivity implements InterfaceBridge, TransaksiInterface {
+
+
     TransaksiAdapter transaksiAdapter;
     Context context;
     ApiInterface apiInterface;
     PrefManager manager;
+    androidx.appcompat.widget.SearchView searchView;
 
     @BindView(R.id.recycler_toko)
     RecyclerView recyclerToko;
@@ -78,7 +84,6 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
     @BindView(R.id.btnProses)
     LinearLayout btnProses;
 
-    List<Transaksi> transaksi;
 
 
     android.app.AlertDialog alertDialog;
@@ -97,16 +102,33 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
         manager = new PrefManager(context);
         alertDialog =new SpotsDialog.Builder().setContext(this).setMessage("Sedang Mengambil Data ....").setCancelable(false).build();
 
-        getInvoice();
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerToko.setLayoutManager(layoutManager);
 
+        getInvoice();
+        searchView = findViewById(R.id.searchBarang);
+        searchView.setVisibility(View.GONE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d("filter", "isi"+query);
+                transaksiAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("filter", "isi"+newText);
+                transaksiAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
 
 
         txtusername.setText(manager.getNamaSales());
 
-        recyclerToko.setHasFixedSize(true);
-        recyclerToko.setNestedScrollingEnabled(false);
-        recyclerToko.setLayoutManager(new LinearLayoutManager(context));
-        transaksi = new ArrayList<>();
+
+
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
@@ -119,8 +141,13 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
             params.height = 220;
             linearBackground.setLayoutParams(params);
             //btnProses.setVisibility(View.VISIBLE);
+            searchView.setVisibility(View.VISIBLE);
             linearScan.setVisibility(View.GONE);
             getData();
+
+
+
+
             fetchDataToko(id);
         }
 
@@ -200,7 +227,9 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
                             Log.d("sukse", "invoice"+response);
                             if (response.getString("status").equalsIgnoreCase("200")) {
                                 invoice = response.getString("inv");
+
                                 getListItem();
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -216,6 +245,9 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
     }
 
     private void getListItem() {
+
+        final List<Transaksi>transaksi;
+        transaksi = new ArrayList<>();
         AndroidNetworking.get(UtilsApi.baseUrl + "apiproduk/" + manager.getIdCabang())
                 .setPriority(Priority.MEDIUM)
                 .build()
@@ -225,6 +257,7 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
                         try {
                             if (response.getString("status").equalsIgnoreCase("200")) {
                                 alertDialog.hide();
+
                                 Log.d("sukses", "code :" + response + manager.getIdCabang() +" - "+invoice);
                                 JSONArray d = response.getJSONArray("produk");
                                 transaksi.clear();
@@ -239,7 +272,7 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
                                             invoice
                                     ));
                                 }
-                                getAdapter();
+                                getAdapter(transaksi);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -255,10 +288,11 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
                 });
     }
 
-    private void getAdapter() {
+    private void getAdapter(List<Transaksi> transaksi) {
         transaksiAdapter = new TransaksiAdapter(transaksi, this);
         recyclerToko.setAdapter(transaksiAdapter);
-        transaksiAdapter.notifyDataSetChanged();
+//        transaksiAdapter.notifyDataSetChanged();
+
     }
 
     private void moveToScan() {
@@ -317,18 +351,20 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
                     public void onResponse(JSONObject response) {
                         try {
                             alertDialog.hide();
+                            Log.d("sukses", "code item"+response);
                             if (response.getString("data").length()>0){
                                 JSONArray d = response.getJSONArray("data");
 
-                                if (d.length() == 0){
-                                    btnProses.setVisibility(View.GONE);
-                                }else{
-                                    btnProses.setVisibility(View.VISIBLE);
-                                }
+
 
                                 for (int i = 0; i < d.length(); i++) {
                                     JSONObject data = d.getJSONObject(i);
-                                    jmlItem.setText((d.length())+" item");
+                                    jmlItem.setText((data.length())+" item");
+                                    if (data.length() == 0){
+                                        btnProses.setVisibility(View.GONE);
+                                    }else{
+                                        btnProses.setVisibility(View.VISIBLE);
+                                    }
                                 }
 
                             }
@@ -340,6 +376,7 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
                     @Override
                     public void onError(ANError anError) {
                         alertDialog.hide();
+                        Log.d("sukses", "code Item"+anError);
                     }
                 });
     }
@@ -378,4 +415,8 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
     public void onUpdateBarang(int val, int qty, double satuan, String jenis) {
         getData();
     }
+
+
+
+
 }

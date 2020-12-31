@@ -1,6 +1,5 @@
 package com.example.sales.Transaksi.adapter;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,14 +8,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,7 +27,6 @@ import com.example.sales.History.HistoryActivity;
 import com.example.sales.R;
 import com.example.sales.SharedPreferences.PrefManager;
 import com.example.sales.Transaksi.Model.Add;
-import com.example.sales.Transaksi.Model.ModelKranjang;
 import com.example.sales.Transaksi.Model.Transaksi;
 import com.example.sales.UtilsApi.InterfaceBridge;
 import com.example.sales.UtilsApi.TransaksiInterface;
@@ -47,22 +45,26 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dmax.dialog.SpotsDialog;
 
-public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.viewHolder> implements TransaksiInterface {
+public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.viewHolder> implements TransaksiInterface, Filterable {
 
     Context context;
-    List<Transaksi>transaksi;
+    List<Transaksi> transaksi;
+    List<Transaksi> filterTransaksi;
     InterfaceBridge interfaceBridge;
 
-    int quty =0;
-    int harga=0;
+    int quty = 0;
+    int harga = 0;
     double satuans;
 
-    int statClick= -20;
+    int statClick = -20;
 
     public TransaksiAdapter(List<Transaksi> transaksi, InterfaceBridge interfaceBridge) {
+        super();
         this.transaksi = transaksi;
+        this.filterTransaksi = transaksi;
         this.interfaceBridge = interfaceBridge;
     }
+
 
     @NonNull
     @Override
@@ -74,12 +76,13 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
 
 
     int selectItem = -1;
+
     @Override
-    public void onBindViewHolder(@NonNull TransaksiAdapter.viewHolder holder,final int position) {
+    public void onBindViewHolder(@NonNull TransaksiAdapter.viewHolder holder, final int position) {
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
-        final Transaksi model = transaksi.get(position);
+        final Transaksi model = filterTransaksi.get(position);
         String harga = formatRupiah.format(Integer.parseInt(model.getHarga()));
         holder.txtNamaBarang.setText(model.getNama());
         holder.txtHargaBarang.setText(harga.substring(2));
@@ -87,14 +90,14 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
 
 //        int a = holder.stat.getVisibility();
 //        if(a!=0){
-            holder.card.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getAddRow(holder, model.getId_s(), holder.adds, model, position);
+        holder.card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getAddRow(holder, model.getId_s(), holder.adds, model, position);
+                Toast.makeText(context, model.getNama(),Toast.LENGTH_SHORT).show();
+            }
 
-                }
-
-            });
+        });
 //        }else {
 //            holder.card.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -106,7 +109,7 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
 
 //        Log.d( "Visibiliti check", "code ;"+a );
 
-        if (selectItem==position){
+        if (selectItem == position) {
             holder.stat.setVisibility(View.VISIBLE);
         }
 
@@ -137,7 +140,7 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
                 notifyDataSetChanged();
                 addBarang(model);
                 interfaceBridge.onUpdateBarang(0, "tambah");
-                Log.d("code", "amaont :"+ harga+"qty : "+quty+"satuan = "+satuans+" user :"+prefManager.getIdCabang()+"invoice :"+model.getInvoice()+"id produk :"+model.getId_p()+"harga :"+model.getHarga()+"stok id"+ model.getId_s());
+                Log.d("code", "amaont :" + harga + "qty : " + quty + "satuan = " + satuans + " user :" + prefManager.getIdCabang() + "invoice :" + model.getInvoice() + "id produk :" + model.getId_p() + "harga :" + model.getHarga() + "stok id" + model.getId_s());
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
@@ -151,15 +154,15 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
 
     private void addBarang(Transaksi model) {
         PrefManager prefManager = new PrefManager(context);
-        AndroidNetworking.post(UtilsApi.baseUrl+"addkeranjang")
+        AndroidNetworking.post(UtilsApi.baseUrl + "addkeranjang")
                 .addBodyParameter("amount", "0")
                 .addBodyParameter("disc", "0")
-                .addBodyParameter("id_user", ""+prefManager.getIdCabang())
+                .addBodyParameter("id_user", "" + prefManager.getIdCabang())
                 .addBodyParameter("invoiceid", model.getInvoice())
                 .addBodyParameter("prices", model.getHarga())
                 .addBodyParameter("produkid", model.getId_p())
-                .addBodyParameter("quantity", quty+"")
-                .addBodyParameter("satuan", satuans+"")
+                .addBodyParameter("quantity", quty + "")
+                .addBodyParameter("satuan", satuans + "")
                 .addBodyParameter("stockId", model.getId_s())
                 .addBodyParameter("id_sales", prefManager.getIdSales())
                 .setPriority(Priority.MEDIUM)
@@ -168,7 +171,8 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            if (response.getString("data").length()>0){
+                            Log.d("sukses", "code :" + response);
+                            if (response.getString("data").length() > 0) {
                                 Toast.makeText(context, "data di tambah", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(context, HistoryActivity.class);
                                 context.startActivity(intent);
@@ -180,16 +184,16 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
 
                     @Override
                     public void onError(ANError anError) {
-
+                        Log.d("sukses", "code :" + anError);
                     }
                 });
     }
 
 
-    private void getAddRow(viewHolder holder, String id_s, List<Add> adds, Transaksi model,final int position) {
+    private void getAddRow(viewHolder holder, String id_s, List<Add> adds, Transaksi model, final int position) {
         holder.alertDialog.show();
         PrefManager prefManager = new PrefManager(context);
-        AndroidNetworking.post(UtilsApi.baseUrl+"apistok")
+        AndroidNetworking.post(UtilsApi.baseUrl + "apistok")
                 .addBodyParameter("stok_id", id_s)
                 .addBodyParameter("cabang", String.valueOf(prefManager.getIdCabang()))
                 .setPriority(Priority.MEDIUM)
@@ -198,15 +202,15 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            if (response.getString("status").equalsIgnoreCase("200")){
+                            if (response.getString("status").equalsIgnoreCase("200")) {
                                 holder.alertDialog.hide();
 
                                 JSONObject isi = response.getJSONObject("stokdata");
                                 JSONArray d = isi.getJSONArray("isi");
                                 adds.clear();
-                                for (int i =0; i<d.length(); i++){
+                                for (int i = 0; i < d.length(); i++) {
                                     String data = d.getString(i);
-                                    Log.d("ulang", "data : "+data);
+                                    Log.d("ulang", "data : " + data);
                                     adds.add(new Add(
                                             data,
                                             Integer.valueOf(model.getHarga()),
@@ -226,7 +230,7 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
                     @Override
                     public void onError(ANError anError) {
                         holder.alertDialog.hide();
-                        Log.d("eror","code :"+anError);
+                        Log.d("eror", "code :" + anError);
                     }
                 });
 
@@ -234,7 +238,7 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
 
     @Override
     public int getItemCount() {
-        return transaksi.size();
+        return filterTransaksi.size();
     }
 
     @Override
@@ -242,16 +246,52 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
         PrefManager prefManager = new PrefManager(context);
         interfaceBridge.onUpdateBarang(val, jenis);
         harga = val;
-        if (jenis.equalsIgnoreCase("tambah")){
-            quty = quty+qty;
-        }else {
-            quty = quty-qty;
+        if (jenis.equalsIgnoreCase("tambah")) {
+            quty = quty + qty;
+        } else {
+            quty = quty - qty;
         }
 
         satuans = satuan;
 
 //        Log.d("code", "amaont :"+ harga+"qty : "+quty+"satuan = "+satuan+" user :"+prefManager.getIdCabang()+"invoice :"+);
     }
+
+    @Override
+    public Filter getFilter() {
+        Log.d("filter", "jalan");
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String charSequenceString = constraint.toString();
+                Log.d("filter", "masuk : " + charSequenceString);
+                if (charSequenceString.isEmpty()) {
+                    filterTransaksi = transaksi;
+                    Log.d("filder", "isi" + charSequenceString);
+                } else {
+                    List<Transaksi> filteredList = new ArrayList<>();
+                    Log.d("filder", "isi :" + charSequenceString);
+                    for (Transaksi name : transaksi) {
+                        if (name.getNama().toLowerCase().contains(charSequenceString.toLowerCase())) {
+                            filteredList.add(name);
+                            Log.d("filter", "dala :" + name);
+                        }
+                        filterTransaksi = filteredList;
+                    }
+                }
+                FilterResults results = new FilterResults();
+                results.values = filterTransaksi;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                filterTransaksi = (List<Transaksi>) results.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+
 
     public class viewHolder extends RecyclerView.ViewHolder {
 
@@ -272,12 +312,13 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
             context = itemView.getContext();
             stat = itemView.findViewById(R.id.stat);
             adds = new ArrayList<>();
-            alertDialog =new SpotsDialog.Builder().setContext(context).setMessage("Sedang Mengambil Data ....").setCancelable(false).build();
+            alertDialog = new SpotsDialog.Builder().setContext(context).setMessage("Sedang Mengambil Data ....").setCancelable(false).build();
         }
     }
+
 }
 

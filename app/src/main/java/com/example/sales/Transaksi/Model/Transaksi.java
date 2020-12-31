@@ -1,5 +1,9 @@
 package com.example.sales.Transaksi.Model;
 
+import androidx.annotation.NonNull;
+
+import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
+
 public class Transaksi {
     private String id_s;
     private String id_p;
@@ -65,4 +69,8 @@ public class Transaksi {
     public void setHarga(String harga) {
         this.harga = harga;
     }
+
+
+
+
 }
