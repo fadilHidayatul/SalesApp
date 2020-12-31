@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ import com.example.sales.UtilsApi.ApiInterface;
 import com.example.sales.UtilsApi.InterfaceBridge;
 import com.example.sales.UtilsApi.TransaksiInterface;
 import com.example.sales.UtilsApi.UtilsApi;
+import com.example.sales.hist.HistActivity;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -81,6 +83,8 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
     LinearLayout linearProfile;
     @BindView(R.id.jmlItem)
     TextView jmlItem;
+    @BindView(R.id.cart)
+    ImageView btnHist;
     @BindView(R.id.btnProses)
     LinearLayout btnProses;
 
@@ -104,6 +108,14 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerToko.setLayoutManager(layoutManager);
+
+        btnHist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TransaksiActivity.this, HistActivity.class);
+                startActivity(intent);
+            }
+        });
 
         getInvoice();
         searchView = findViewById(R.id.searchBarang);
@@ -351,7 +363,7 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
                     public void onResponse(JSONObject response) {
                         try {
                             alertDialog.hide();
-                            Log.d("sukses", "code item"+response);
+                            Log.d("sukses", "code item"+response+ response.length());
                             if (response.getString("data").length()>0){
                                 JSONArray d = response.getJSONArray("data");
 
@@ -359,8 +371,8 @@ public class TransaksiActivity extends AppCompatActivity implements InterfaceBri
 
                                 for (int i = 0; i < d.length(); i++) {
                                     JSONObject data = d.getJSONObject(i);
-                                    jmlItem.setText((data.length())+" item");
-                                    if (data.length() == 0){
+                                    jmlItem.setText((d.length())+" item");
+                                    if (d.length() == 0){
                                         btnProses.setVisibility(View.GONE);
                                     }else{
                                         btnProses.setVisibility(View.VISIBLE);

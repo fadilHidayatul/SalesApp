@@ -154,7 +154,7 @@ public class TransaksiAdapter extends RecyclerView.Adapter<TransaksiAdapter.view
 
     private void addBarang(Transaksi model) {
         PrefManager prefManager = new PrefManager(context);
-        AndroidNetworking.post(UtilsApi.baseUrl + "addkeranjang")
+        AndroidNetworking.post(UtilsApi.baseUrl + "addkeranjangapi")
                 .addBodyParameter("amount", "0")
                 .addBodyParameter("disc", "0")
                 .addBodyParameter("id_user", "" + prefManager.getIdCabang())

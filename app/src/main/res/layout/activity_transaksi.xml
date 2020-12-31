@@ -70,9 +70,10 @@
                 android:layout_height="@dimen/_30sdp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/_10sdp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:onClick="moveToHistory"
-                android:src="@drawable/ic_cart" />
+                android:tint="@color/white"
+                android:src="@drawable/ic_restore" />
         </RelativeLayout>
 
         <LinearLayout

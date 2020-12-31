@@ -64,6 +64,12 @@ public class HistActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rvHist);
         swipeRefreshLayout = findViewById(R.id.swHist);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getHist();
+            }
+        });
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getHist();
